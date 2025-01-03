@@ -53,6 +53,7 @@ class PolygonMatchingLoss(nn.Module):
         all_broken_status = []
 
         for b_i in range(bs):
+            #取出真值多边形数量的真值多边形和预测多边形
             num_polys = all_num_gt_polys[b_i]
             gt_polys = all_gt_polys[b_i, :num_polys]
             pred_polys = all_pred_polys[b_i, :num_polys]
@@ -62,6 +63,7 @@ class PolygonMatchingLoss(nn.Module):
             
             # The permutation loss
             costs = []
+            #每个房间的预测和真值之间的最小损失
             for gt_i in range(num_polys):
                 cost_i = self._polygon_dist(gt_polys[gt_i], pred_polys, poly_mask, gt_i)
                 costs.append(cost_i)
